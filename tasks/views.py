@@ -32,6 +32,10 @@ class TaskViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # Soft delete handled by is_deleted flag
         return Task.objects.filter(owner=self.request.user, is_deleted=False)
+    
+    
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
     def perform_destroy(self, instance):
         instance.is_deleted = True
