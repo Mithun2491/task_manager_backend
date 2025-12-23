@@ -26,8 +26,9 @@ class AttachmentSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         if request is None:
             return None
-        return request.build_absolute_uri(f"/api/tasks/attachments/{obj.id}/download/")
-    
+        return request.build_absolute_uri(
+            f"/api/tasks/attachments/{obj.id}/download/"
+        )
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -59,7 +60,3 @@ class TaskSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
-
-    def create(self, validated_data):
-        user = self.context["request"].user
-        return Task.objects.create(owner=user, **validated_data)
