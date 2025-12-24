@@ -17,10 +17,12 @@ from .permissions import IsOwner
 from .filters import TaskFilter
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Category.objects.filter(owner=self.request.user)
 
 
 class TaskViewSet(viewsets.ModelViewSet):

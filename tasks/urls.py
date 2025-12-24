@@ -5,7 +5,7 @@ from .views import TaskViewSet, CategoryViewSet, AttachmentDownloadViewSet
 
 router = DefaultRouter()
 router.register(r"", TaskViewSet, basename="task")          # 🔥 FIX HERE
-router.register(r"categories", CategoryViewSet, basename="category")
+router.register(r"categories", CategoryViewSet, basename="categories")
 router.register(r"attachments", AttachmentDownloadViewSet, basename="attachment-download")
 
 urlpatterns = [
