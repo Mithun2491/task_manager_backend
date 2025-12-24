@@ -1,12 +1,18 @@
-from django.urls import include, path
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import TaskViewSet, CategoryViewSet, AttachmentDownloadViewSet
 
-router = DefaultRouter()
-router.register(r"", TaskViewSet, basename="task")
-router.register(r"categories", CategoryViewSet, basename="task-categories")
-router.register(r"attachments", AttachmentDownloadViewSet, basename="attachment")
+task_router = DefaultRouter()
+task_router.register(r"", TaskViewSet, basename="task")
+
+category_router = DefaultRouter()
+category_router.register(r"", CategoryViewSet, basename="category")
+
+attachment_router = DefaultRouter()
+attachment_router.register(r"", AttachmentDownloadViewSet, basename="attachment")
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("", include(task_router.urls)),                 # /api/tasks/
+    path("categories/", include(category_router.urls)),  # /api/tasks/categories/
+    path("attachments/", include(attachment_router.urls)),
 ]
