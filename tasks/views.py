@@ -18,11 +18,9 @@ from .filters import TaskFilter
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        return Category.objects.filter(owner=self.request.user)
 
 
 class TaskViewSet(viewsets.ModelViewSet):
